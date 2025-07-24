@@ -6,7 +6,91 @@
     <title>UB MMA3A Class Schedule</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        .schedule-card {
+            transition: all 0.3s ease;
+        }
+        .schedule-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .lecture-bg {
+            background-color: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+        }
+        .lab-bg {
+            background-color: #f0fdf4;
+            border-left: 4px solid #10b981;
+        }
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+        .modal-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .modal-visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content-hidden {
+            transform: translateY(-20px);
+        }
+        .modal-content-visible {
+            transform: translateY(0);
+        }
+        .time-slot {
+            position: relative;
+            padding-left: 2.5rem;
+        }
+        .time-slot::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #3b82f6;
+            border-radius: 2px;
+        }
+        .time-slot.lab::before {
+            background-color: #10b981;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 0.25rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            border: 3px solid white;
+        }
+        .timeline-item.lab::before {
+            background-color: #10b981;
+        }
+    </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     <div class="container mx-auto px-4 py-8">
@@ -15,7 +99,6 @@
             <p class="text-gray-600">Fall Semester 2023</p>
         </header>
 
-        <!-- Search and filter controls -->
         <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
             <div class="w-full md:w-auto">
                 <div class="relative">
@@ -184,7 +267,6 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <!-- Table rows will be populated here -->
                     <tr class="hover:bg-gray-50">
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">MMA311</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Digital Photography</td>
@@ -196,7 +278,83 @@
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Lecture</span>
                         </td>
                     </tr>
-                    <!-- More table rows... -->
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">MMA311</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Digital Photography</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">W</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">07:00AM–10:00AM</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Studio A</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Lab</span>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">MMA312</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Multimedia Publishing</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">B</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">W</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">02:30PM–04:30PM</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">305</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Lecture</span>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">MMA312</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Multimedia Publishing</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">B</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">F</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">02:30PM–05:30PM</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Computer Lab 3</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Lab</span>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">MMA313</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Typography and Layout</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">F</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">07:00AM–10:00AM</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Design Studio</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Lab</span>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">MMA313</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Typography and Layout</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">F</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">10:30AM–12:30PM</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Room 207</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Lecture</span>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">MMA314</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Business Ventures in Multimedia</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">T</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">07:00AM–10:00AM</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">401</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Lecture</span>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">MMARES</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Methods of Research</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">M/W</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">04:30PM–06:00PM</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">205</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Lecture</span>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -204,29 +362,264 @@
         <!-- Timeline View (Hidden by default) -->
         <div id="timelineView" class="hidden bg-white rounded-lg shadow-md p-6">
             <div class="timeline">
-                <!-- Timeline items will be populated here -->
+                <!-- Monday -->
                 <div class="timeline-item">
                     <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-2">Monday</div>
                     <div class="space-y-3">
                         <div class="time-slot bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                            <!-- Timeline content -->
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-blue-800">MMA311 - Digital Photography</h3>
+                                    <p class="text-sm text-gray-600">07:00AM–09:00AM</p>
+                                </div>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Lecture</span>
+                            </div>
+                            <p class="mt-2 text-sm"><i class="fas fa-map-marker-alt mr-1 text-gray-500"></i> Room 302</p>
+                        </div>
+                        <div class="time-slot bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-gray-800">MMARES - Methods of Research</h3>
+                                    <p class="text-sm text-gray-600">04:30PM–06:00PM</p>
+                                </div>
+                                <span class="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded">Lecture</span>
+                            </div>
+                            <p class="mt-2 text-sm"><i class="fas fa-map-marker-alt mr-1 text-gray-500"></i> Room 205</p>
                         </div>
                     </div>
                 </div>
-                <!-- More timeline items... -->
+
+                <!-- Tuesday -->
+                <div class="timeline-item">
+                    <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-2">Tuesday</div>
+                    <div class="space-y-3">
+                        <div class="time-slot bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-blue-800">MMA314 - Business Ventures in Multimedia</h3>
+                                    <p class="text-sm text-gray-600">07:00AM–10:00AM</p>
+                                </div>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Lecture</span>
+                            </div>
+                            <p class="mt-2 text-sm"><i class="fas fa-map-marker-alt mr-1 text-gray-500"></i> Room 401</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wednesday -->
+                <div class="timeline-item">
+                    <div class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-2">Wednesday</div>
+                    <div class="space-y-3">
+                        <div class="time-slot lab bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-blue-800">MMA311 - Digital Photography</h3>
+                                    <p class="text-sm text-gray-600">07:00AM–10:00AM</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Lab</span>
+                            </div>
+                            <p class="mt-2 text-sm"><i class="fas fa-map-marker-alt mr-1 text-gray-500"></i> Studio A</p>
+                        </div>
+                        <div class="time-slot bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-blue-800">MMA312 - Multimedia Publishing</h3>
+                                    <p class="text-sm text-gray-600">02:30PM–04:30PM</p>
+                                </div>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Lecture</span>
+                            </div>
+                            <p class="mt-2 text-sm"><i class="fas fa-map-marker-alt mr-1 text-gray-500"></i> Room 305</p>
+                        </div>
+                        <div class="time-slot bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-gray-800">MMARES - Methods of Research</h3>
+                                    <p class="text-sm text-gray-600">04:30PM–06:00PM</p>
+                                </div>
+                                <span class="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded">Lecture</span>
+                            </div>
+                            <p class="mt-2 text-sm"><i class="fas fa-map-marker-alt mr-1 text-gray-500"></i> Room 205</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friday -->
+                <div class="timeline-item">
+                    <div class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-2">Friday</div>
+                    <div class="space-y-3">
+                        <div class="time-slot lab bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-blue-800">MMA313 - Typography and Layout</h3>
+                                    <p class="text-sm text-gray-600">07:00AM–10:00AM</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Lab</span>
+                            </div>
+                            <p class="mt-2 text-sm"><i class="fas fa-map-marker-alt mr-1 text-gray-500"></i> Design Studio</p>
+                        </div>
+                        <div class="time-slot bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-blue-800">MMA313 - Typography and Layout</h3>
+                                    <p class="text-sm text-gray-600">10:30AM–12:30PM</p>
+                                </div>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Lecture</span>
+                            </div>
+                            <p class="mt-2 text-sm"><i class="fas fa-map-marker-alt mr-1 text-gray-500"></i> Room 207</p>
+                            <button class="mt-2 text-xs text-blue-600 hover:text-blue-800" onclick="showLabDetails('MMA313', '07:00AM–10:00AM', 'Design Studio')">
+                                <i class="fas fa-info-circle mr-1"></i>View Lab Details
+                            </button>
+                        </div>
+                        <div class="time-slot lab bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-blue-800">MMA312 - Multimedia Publishing</h3>
+                                    <p class="text-sm text-gray-600">02:30PM–05:30PM</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Lab</span>
+                            </div>
+                            <p class="mt-2 text-sm"><i class="fas fa-map-marker-alt mr-1 text-gray-500"></i> Computer Lab 3</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Row View (Hidden by default) -->
         <div id="rowView" class="hidden bg-white rounded-lg shadow-md overflow-hidden">
             <div class="divide-y divide-gray-200">
-                <!-- Row items will be populated here -->
+                <!-- MMA311 -->
                 <div class="p-6 hover:bg-gray-50 transition">
                     <div class="flex flex-col md:flex-row md:items-center justify-between">
-                        <!-- Row content -->
+                        <div class="mb-4 md:mb-0">
+                            <h3 class="text-xl font-bold text-blue-800">MMA311 - Digital Photography</h3>
+                            <p class="text-gray-600">Section A</p>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-blue-50 p-3 rounded-lg min-w-[200px]">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium">Lecture</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Mon</span>
+                                </div>
+                                <p class="text-sm mt-1">07:00AM–09:00AM</p>
+                                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-map-marker-alt mr-1"></i>Room 302</p>
+                            </div>
+                            <div class="bg-green-50 p-3 rounded-lg min-w-[200px]">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium">Lab</span>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Wed</span>
+                                </div>
+                                <p class="text-sm mt-1">07:00AM–10:00AM</p>
+                                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-map-marker-alt mr-1"></i>Studio A</p>
+                                <button class="mt-1 text-xs text-green-600 hover:text-green-800" onclick="showLabDetails('MMA311', '07:00AM–10:00AM', 'Studio A')">
+                                    <i class="fas fa-info-circle mr-1"></i>Details
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- More row items... -->
+
+                <!-- MMA312 -->
+                <div class="p-6 hover:bg-gray-50 transition">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <h3 class="text-xl font-bold text-blue-800">MMA312 - Multimedia Publishing</h3>
+                            <p class="text-gray-600">Section B</p>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-blue-50 p-3 rounded-lg min-w-[200px]">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium">Lecture</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Wed</span>
+                                </div>
+                                <p class="text-sm mt-1">02:30PM–04:30PM</p>
+                                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-map-marker-alt mr-1"></i>Room 305</p>
+                            </div>
+                            <div class="bg-green-50 p-3 rounded-lg min-w-[200px]">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium">Lab</span>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Fri</span>
+                                </div>
+                                <p class="text-sm mt-1">02:30PM–05:30PM</p>
+                                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-map-marker-alt mr-1"></i>Computer Lab 3</p>
+                                <button class="mt-1 text-xs text-green-600 hover:text-green-800" onclick="showLabDetails('MMA312', '02:30PM–05:30PM', 'Computer Lab 3')">
+                                    <i class="fas fa-info-circle mr-1"></i>Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MMA313 -->
+                <div class="p-6 hover:bg-gray-50 transition">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <h3 class="text-xl font-bold text-blue-800">MMA313 - Typography and Layout</h3>
+                            <p class="text-gray-600">Section A</p>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-blue-50 p-3 rounded-lg min-w-[200px]">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium">Lecture</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Fri</span>
+                                </div>
+                                <p class="text-sm mt-1">10:30AM–12:30PM</p>
+                                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-map-marker-alt mr-1"></i>Room 207</p>
+                            </div>
+                            <div class="bg-green-50 p-3 rounded-lg min-w-[200px]">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium">Lab</span>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Fri</span>
+                                </div>
+                                <p class="text-sm mt-1">07:00AM–10:00AM</p>
+                                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-map-marker-alt mr-1"></i>Design Studio</p>
+                                <button class="mt-1 text-xs text-green-600 hover:text-green-800" onclick="showLabDetails('MMA313', '07:00AM–10:00AM', 'Design Studio')">
+                                    <i class="fas fa-info-circle mr-1"></i>Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MMA314 -->
+                <div class="p-6 hover:bg-gray-50 transition">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <h3 class="text-xl font-bold text-blue-800">MMA314 - Business Ventures in Multimedia</h3>
+                            <p class="text-gray-600">Section A</p>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-blue-50 p-3 rounded-lg min-w-[200px]">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium">Lecture</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Tue</span>
+                                </div>
+                                <p class="text-sm mt-1">07:00AM–10:00AM</p>
+                                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-map-marker-alt mr-1"></i>Room 401</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MMARES -->
+                <div class="p-6 hover:bg-gray-50 transition">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <h3 class="text-xl font-bold text-blue-800">MMARES - Methods of Research</h3>
+                            <p class="text-gray-600">Section A</p>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-blue-50 p-3 rounded-lg min-w-[200px]">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-medium">Lecture</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Mon/Wed</span>
+                                </div>
+                                <p class="text-sm mt-1">04:30PM–06:00PM</p>
+                                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-map-marker-alt mr-1"></i>Room 205</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -240,7 +633,22 @@
                         <p class="font-semibold">Subject:</p>
                         <p id="modalSubject" class="text-gray-700"></p>
                     </div>
-                    <!-- More modal content... -->
+                    <div class="mb-4">
+                        <p class="font-semibold">Time:</p>
+                        <p id="modalTime" class="text-gray-700"></p>
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold">Location:</p>
+                        <p id="modalLocation" class="text-gray-700"></p>
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold">Requirements:</p>
+                        <p id="modalRequirements" class="text-gray-700">Please bring your laptop with required software installed. Check Canvas for specific requirements.</p>
+                    </div>
+                    <div class="mb-4">
+                        <p class="font-semibold">Instructor:</p>
+                        <p class="text-gray-700">Prof. Johnson (TA: Sarah Miller)</p>
+                    </div>
                 </div>
                 <button id="closeModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
                     <i class="fas fa-times"></i>
@@ -249,6 +657,156 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // View Selector
+            const viewSelect = document.getElementById('viewSelect');
+            const weeklyView = document.getElementById('weeklyView');
+            const tabularView = document.getElementById('tabularView');
+            const timelineView = document.getElementById('timelineView');
+            const rowView = document.getElementById('rowView');
+            
+            viewSelect.addEventListener('change', function() {
+                const selectedView = this.value;
+                
+                // Hide all views
+                weeklyView.classList.add('hidden');
+                tabularView.classList.add('hidden');
+                timelineView.classList.add('hidden');
+                rowView.classList.add('hidden');
+                
+                // Show selected view
+                if (selectedView === 'weekly') {
+                    weeklyView.classList.remove('hidden');
+                } else if (selectedView === 'tabular') {
+                    tabularView.classList.remove('hidden');
+                } else if (selectedView === 'timeline') {
+                    timelineView.classList.remove('hidden');
+                } else if (selectedView === 'rows') {
+                    rowView.classList.remove('hidden');
+                }
+            });
+
+            // Search Functionality
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('keyup', function() {
+                const filter = this.value.toUpperCase();
+                
+                // Handle search for weekly view
+                const weeklyCards = document.querySelectorAll('#weeklyView .schedule-card');
+                weeklyCards.forEach(card => {
+                    const text = card.textContent || card.innerText;
+                    if (text.toUpperCase().indexOf(filter) > -1) {
+                        card.style.display = "";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+                
+                // Handle search for tabular view
+                const tabularRows = document.querySelectorAll('#tabularView tbody tr');
+                tabularRows.forEach(row => {
+                    const text = row.textContent || row.innerText;
+                    if (text.toUpperCase().indexOf(filter) > -1) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+                
+                // Handle search for timeline view
+                const timelineItems = document.querySelectorAll('#timelineView .time-slot');
+                timelineItems.forEach(item => {
+                    const text = item.textContent || item.innerText;
+                    if (text.toUpperCase().indexOf(filter) > -1) {
+                        item.style.display = "";
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+                
+                // Handle search for row view
+                const rowItems = document.querySelectorAll('#rowView > div > div');
+                rowItems.forEach(item => {
+                    const text = item.textContent || item.innerText;
+                    if (text.toUpperCase().indexOf(filter) > -1) {
+                        item.style.display = "";
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+            });
+
+            // Day Filter
+            const dayFilter = document.getElementById('dayFilter');
+            dayFilter.addEventListener('change', function() {
+                const selectedDay = this.value;
+                const daySections = document.querySelectorAll('#weeklyView > div');
+                
+                if (selectedDay === 'all') {
+                    daySections.forEach(section => {
+                        section.style.display = "";
+                    });
+                } else {
+                    daySections.forEach(section => {
+                        const dayTitle = section.querySelector('div:first-child').textContent;
+                        if (dayTitle.includes(selectedDay === 'M' ? 'Monday' : 
+                                            selectedDay === 'T' ? 'Tuesday' : 
+                                            selectedDay === 'W' ? 'Wednesday' : 'Friday')) {
+                            section.style.display = "";
+                        } else {
+                            section.style.display = "none";
+                        }
+                    });
+                }
+            });
+
+            // Modal for Lab Details
+            const labModal = document.getElementById('labModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalSubject = document.getElementById('modalSubject');
+            const modalTime = document.getElementById('modalTime');
+            const modalLocation = document.getElementById('modalLocation');
+            const closeModal = document.getElementById('closeModal');
+            
+            // Global function to show lab details
+            window.showLabDetails = function(subject, time, location) {
+                modalTitle.textContent = 'Lab Session Details';
+                modalSubject.textContent = subject;
+                modalTime.textContent = time;
+                modalLocation.textContent = location;
+                
+                // Show modal with animation
+                labModal.classList.remove('modal-hidden');
+                labModal.classList.add('modal-visible');
+                setTimeout(() => {
+                    labModal.querySelector('.modal-content').classList.remove('modal-content-hidden');
+                    labModal.querySelector('.modal-content').classList.add('modal-content-visible');
+                }, 10);
+            };
+            
+            closeModal.addEventListener('click', function() {
+                // Hide modal with animation
+                labModal.querySelector('.modal-content').classList.remove('modal-content-visible');
+                labModal.querySelector('.modal-content').classList.add('modal-content-hidden');
+                setTimeout(() => {
+                    labModal.classList.remove('modal-visible');
+                    labModal.classList.add('modal-hidden');
+                }, 300);
+            });
+            
+            // Close modal when clicking outside
+            labModal.addEventListener('click', function(e) {
+                if (e.target === labModal) {
+                    labModal.querySelector('.modal-content').classList.remove('modal-content-visible');
+                    labModal.querySelector('.modal-content').classList.add('modal-content-hidden');
+                    setTimeout(() => {
+                        labModal.classList.remove('modal-visible');
+                        labModal.classList.add('modal-hidden');
+                    }, 300);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
